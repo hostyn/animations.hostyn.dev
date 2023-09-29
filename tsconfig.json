@@ -16,6 +16,7 @@
     "paths": {
       "@styles/*": ["./src/styles/*"],
       "@components/*": ["./src/components/*"],
+      "@styled-system/*": ["./styled-system/*"],
       "@/*": ["./src/*"]
     }
   },
