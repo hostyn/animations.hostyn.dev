@@ -5,13 +5,14 @@ import { SystemStyleObject } from "@pandacss/dev";
 import Slider from "@components/ui/Slider";
 import App from "@components/App";
 import Input from "@components/ui/Input";
+import ConfigElement from "@components/ConfigElement";
 
 export default function Home() {
   const [state, setState] = useState({
     content: "Hola",
     translate: 50,
-    shadowSize: 8,
-    blur: 30,
+    textShadowSize: 8,
+    blurRadius: 30,
     fontColor: "#dcdcdc",
   });
 
@@ -43,37 +44,43 @@ export default function Home() {
               gap: "4",
             })}
           >
-            <Input
-              value={state.content}
-              onChange={(e) =>
-                setState((state) => ({ ...state, content: e.target.value }))
-              }
-            />
+            <ConfigElement name="Content">
+              <Input
+                value={state.content}
+                onChange={(e) =>
+                  setState((state) => ({ ...state, content: e.target.value }))
+                }
+              />
+            </ConfigElement>
 
-            <input
-              type="number"
-              value={state.shadowSize}
-              onChange={(e) =>
-                setState((state) => ({
-                  ...state,
-                  shadowSize: Number.isNaN(e.target.valueAsNumber)
-                    ? 0
-                    : e.target.valueAsNumber,
-                }))
-              }
-            />
-            <input
-              type="number"
-              value={state.blur}
-              onChange={(e) =>
-                setState((state) => ({
-                  ...state,
-                  blur: Number.isNaN(e.target.valueAsNumber)
-                    ? 0
-                    : e.target.valueAsNumber,
-                }))
-              }
-            />
+            <ConfigElement name="Translation">
+              <Slider
+                value={state.translate}
+                onChange={(value) =>
+                  setState((state) => ({ ...state, translate: value }))
+                }
+              />
+            </ConfigElement>
+
+            <ConfigElement name="Shadow Size">
+              <Slider
+                value={state.textShadowSize}
+                max={15}
+                onChange={(value) =>
+                  setState((state) => ({ ...state, textShadowSize: value }))
+                }
+              />
+            </ConfigElement>
+
+            <ConfigElement name="Blur Radius">
+              <Slider
+                value={state.blurRadius}
+                onChange={(value) =>
+                  setState((state) => ({ ...state, blurRadius: value }))
+                }
+              />
+            </ConfigElement>
+
             <input
               type="color"
               value={state.fontColor}
@@ -81,32 +88,6 @@ export default function Home() {
                 setState((state) => ({ ...state, fontColor: e.target.value }))
               }
             />
-            <div
-              className={css({
-                display: "flex",
-                gap: "2rem",
-              })}
-            >
-              <Slider
-                value={state.translate}
-                onChange={([value]) =>
-                  setState((state) => ({ ...state, translate: value }))
-                }
-              />
-              <input
-                className={css({
-                  width: "5rem",
-                })}
-                type="number"
-                value={state.translate}
-                onChange={(e) =>
-                  setState((state) => ({
-                    ...state,
-                    translate: e.target.valueAsNumber,
-                  }))
-                }
-              />
-            </div>
           </div>
           <div
             className={css({
@@ -121,10 +102,10 @@ export default function Home() {
                 {
                   "--popup-font-color": state.fontColor,
                   "--popup-translate": `-${state.translate}px`,
-                  "--popup-blur": `${state.blur}px`,
-                  "--popup-text-shadow":
-                    state.shadowSize > 0
-                      ? [...Array(state.shadowSize)]
+                  "--popup-blur-radius": `${state.blurRadius}px`,
+                  "--popup-text-shadow-size":
+                    state.textShadowSize > 0
+                      ? [...Array(state.textShadowSize)]
                           .map(
                             (value, index) =>
                               `0 ${index + 1}px 0 rgb(150, 150, 150)`
@@ -167,5 +148,5 @@ export default function Home() {
 const hoverStyles: SystemStyleObject = {
   transform: "translateY(var(--popup-translate))",
   textShadow:
-    "0 calc(var(--popup-translate) * -1) var(--popup-blur) rgba(150, 150, 150, 0.3), var(--popup-text-shadow)",
+    "0 calc(var(--popup-translate) * -1) var(--popup-blur-radius) rgba(150, 150, 150, 0.3), var(--popup-text-shadow-size)",
 };
