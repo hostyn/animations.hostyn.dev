@@ -13,16 +13,17 @@ export default function Input(
         color: "white",
         borderRadius: "sm",
         padding: "token(sizes.1) token(sizes.2)",
-        border: "1px solid token(colors.text)",
-        transition: "all 0.3s ease",
+        outline: "0px solid black",
+        transition: "background-color 0.2s ease",
 
         _focus: {
-          outline: "1px solid token(colors.white)",
+          outline: "2px solid token(colors.text)",
           bg: "menu",
         },
 
         _hover: {
           bg: "menu",
+          outline: "1px solid token(colors.text)",
         },
       })}
       {...props}
