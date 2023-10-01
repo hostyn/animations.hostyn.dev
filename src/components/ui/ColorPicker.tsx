@@ -16,8 +16,6 @@ export default function ColorPicker({
     parseInt(value.replaceAll("#", "").slice(2, 4), 16) +
     parseInt(value.replaceAll("#", "").slice(4, 6), 16);
 
-  console.log(colorValue);
-
   return (
     <label
       style={style}
