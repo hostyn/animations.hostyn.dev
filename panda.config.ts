@@ -30,6 +30,13 @@ export default defineConfig({
           white: {
             value: "#ddd",
           },
+          error: {
+            value: "#d93036",
+          },
+
+          errorHover: {
+            value: "#ff6166",
+          },
         },
       },
 
@@ -50,6 +57,8 @@ export default defineConfig({
       },
     },
   },
+
+  jsxFramework: "react",
 
   // The output directory for your css system
   outdir: "styled-system",
