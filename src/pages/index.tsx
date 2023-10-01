@@ -6,15 +6,21 @@ import Slider from "@components/ui/Slider";
 import App from "@components/App";
 import Input from "@components/ui/Input";
 import ConfigElement from "@components/ConfigElement";
+import ColorPicker from "@components/ui/ColorPicker";
+import { Button } from "@components/ui/Button";
+
+const defaultValues = {
+  content: "Popup",
+  translate: 50,
+  textShadowSize: 8,
+  blurRadius: 30,
+  fontColor: "#dcdcdc",
+  shadowColor: "#969696",
+  blurColor: "#9696964c",
+};
 
 export default function Home() {
-  const [state, setState] = useState({
-    content: "Hola",
-    translate: 50,
-    textShadowSize: 8,
-    blurRadius: 30,
-    fontColor: "#dcdcdc",
-  });
+  const [state, setState] = useState(defaultValues);
 
   return (
     <>
@@ -26,6 +32,24 @@ export default function Home() {
       </Head>
       <App>
         <div
+          style={
+            {
+              "--popup-font-color": state.fontColor,
+              "--popup-blur-color": state.blurColor,
+              "--popup-shadow-color": state.shadowColor,
+              "--popup-translate": `-${state.translate}px`,
+              "--popup-blur-radius": `${state.blurRadius}px`,
+              "--popup-text-shadow-size":
+                state.textShadowSize > 0
+                  ? [...Array(state.textShadowSize)]
+                      .map(
+                        (_, index) =>
+                          `0 ${index + 1}px 0 var(--popup-shadow-color)`
+                      )
+                      .join(", ")
+                  : "0 0 0 #000",
+            } as any
+          }
           className={css({
             display: "grid",
             gridTemplateColumns: "token(sizes.72) 1fr",
@@ -81,13 +105,39 @@ export default function Home() {
               />
             </ConfigElement>
 
-            <input
-              type="color"
-              value={state.fontColor}
-              onChange={(e) =>
-                setState((state) => ({ ...state, fontColor: e.target.value }))
-              }
-            />
+            <ConfigElement name="Text Color">
+              <ColorPicker
+                style={{ background: "var(--popup-font-color)" }}
+                value={state.fontColor}
+                onChange={(value) =>
+                  setState((state) => ({ ...state, fontColor: value }))
+                }
+              />
+            </ConfigElement>
+
+            <ConfigElement name="Shadow Color">
+              <ColorPicker
+                style={{ background: "var(--popup-shadow-color)" }}
+                value={state.shadowColor}
+                onChange={(value) =>
+                  setState((state) => ({ ...state, shadowColor: value }))
+                }
+              />
+            </ConfigElement>
+
+            <ConfigElement name="Blur Color">
+              <ColorPicker
+                style={{ background: "var(--popup-blur-color)" }}
+                value={state.blurColor}
+                onChange={(value) =>
+                  setState((state) => ({ ...state, blurColor: value }))
+                }
+              />
+            </ConfigElement>
+
+            <Button visual="error" onClick={() => setState(defaultValues)}>
+              Reset
+            </Button>
           </div>
           <div
             className={css({
@@ -98,22 +148,6 @@ export default function Home() {
             })}
           >
             <div
-              style={
-                {
-                  "--popup-font-color": state.fontColor,
-                  "--popup-translate": `-${state.translate}px`,
-                  "--popup-blur-radius": `${state.blurRadius}px`,
-                  "--popup-text-shadow-size":
-                    state.textShadowSize > 0
-                      ? [...Array(state.textShadowSize)]
-                          .map(
-                            (value, index) =>
-                              `0 ${index + 1}px 0 rgb(150, 150, 150)`
-                          )
-                          .join(", ")
-                      : "0 0 0 #000",
-                } as any
-              }
               className={css({
                 height: "100%",
                 display: "flex",
@@ -148,5 +182,5 @@ export default function Home() {
 const hoverStyles: SystemStyleObject = {
   transform: "translateY(var(--popup-translate))",
   textShadow:
-    "0 calc(var(--popup-translate) * -1) var(--popup-blur-radius) rgba(150, 150, 150, 0.3), var(--popup-text-shadow-size)",
+    "0 calc(var(--popup-translate) * -1) var(--popup-blur-radius) var(--popup-blur-color), var(--popup-text-shadow-size)",
 };
