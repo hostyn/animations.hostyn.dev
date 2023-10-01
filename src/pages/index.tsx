@@ -16,7 +16,7 @@ const defaultValues = {
   blurRadius: 30,
   fontColor: "#dcdcdc",
   shadowColor: "#969696",
-  blurColor: "#9696964c",
+  blurColor: "#969696",
 };
 
 export default function Home() {
