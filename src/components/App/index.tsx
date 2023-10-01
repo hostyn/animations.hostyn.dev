@@ -1,6 +1,10 @@
 import { css } from "@styled-system/css";
 import Nav from "./Nav";
+import { Inter } from "next/font/google";
 
+const inter = Inter({
+  subsets: ["latin"],
+});
 interface AppProps {
   children: React.ReactNode;
 }
@@ -8,7 +12,7 @@ interface AppProps {
 export default function App({ children }: AppProps) {
   return (
     <div
-      className={css({
+      className={`${inter.className} ${css({
         display: "grid",
         gridTemplateRows: "3rem 1fr",
         minHeight: "100vh",
@@ -16,7 +20,7 @@ export default function App({ children }: AppProps) {
         padding: "4",
         bg: "bg",
         gap: "2",
-      })}
+      })}`}
     >
       <Nav />
       <div

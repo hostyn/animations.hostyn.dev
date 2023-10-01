@@ -7,26 +7,21 @@ interface ConfigElementProps {
 
 export default function ConfigElement({ name, children }: ConfigElementProps) {
   return (
-    <div
+    <label
       className={css({
         display: "flex",
         flexDir: "column",
         gap: "0.25rem",
+        color: "text",
+        fontSize: "sm",
+        fontWeight: 700,
+        lineHeight: "1.25rem",
+        letterSpacing: "-0.025rem",
+        textTransform: "uppercase",
       })}
     >
-      <span
-        className={css({
-          color: "text",
-          fontSize: "sm",
-          fontWeight: 700,
-          lineHeight: "1.25rem",
-          letterSpacing: "-0.025rem",
-          textTransform: "uppercase",
-        })}
-      >
-        {name}
-      </span>
+      {name}
       {children}
-    </div>
+    </label>
   );
 }

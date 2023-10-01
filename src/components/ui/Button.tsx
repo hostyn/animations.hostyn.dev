@@ -19,7 +19,7 @@ export const buttonStyle = cva({
       regular: {},
       error: {
         bg: "error",
-        color: "bg",
+        color: "#fff",
 
         _hover: {
           bg: "errorHover",
