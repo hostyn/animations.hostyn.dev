@@ -6,6 +6,8 @@ import Input from "@components/ui/Input";
 import Slider from "@components/ui/Slider";
 import ColorPicker from "@components/ui/ColorPicker";
 import { Button } from "@components/ui/Button";
+import getDefaultValues from "@utils/getDefaultValues";
+import CodeBlock from "@components/ui/CodeBlock";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -37,11 +39,18 @@ interface ColorPickerProps {
 
 export type PropertyType = TextInputProps | SliderProps | ColorPickerProps;
 
+export interface CodeType {
+  language: string;
+  fileName: string;
+  code: string;
+}
+
 interface AppProps {
   children: React.ReactNode;
   properties: PropertyType[];
   state: Record<string, any>;
   setState: React.Dispatch<React.SetStateAction<any>>;
+  code: CodeType[];
 }
 
 export default function App({
@@ -49,6 +58,7 @@ export default function App({
   properties,
   state,
   setState,
+  code,
 }: AppProps) {
   return (
     <div
@@ -125,9 +135,80 @@ export default function App({
               )}
             </PropertyElement>
           ))}
-          <Button visual="error">Reset</Button>
+          <Button
+            visual="error"
+            onClick={() => setState(getDefaultValues(properties))}
+          >
+            Reset
+          </Button>
         </div>
         {children}
+        <div
+          className={css({
+            "& pre::-webkit-scrollbar": {
+              height: "10px",
+            },
+
+            "& pre::-webkit-scrollbar-track": {
+              background: "transparent",
+            },
+            "& pre::-webkit-scrollbar-thumb": {
+              background: "#282a36",
+              borderRadius: "3px",
+            },
+          })}
+        >
+          <div
+            className={css({
+              display: "flex",
+              flexDir: "column",
+              bg: "menu",
+              padding: "1rem",
+              gap: "1rem",
+              borderRadius: "lg",
+            })}
+          >
+            <div
+              className={css({
+                display: "flex",
+                gap: "2",
+              })}
+            >
+              <button
+                className={css({
+                  color: "text",
+                  bg: "bg",
+                  padding: "2",
+                  borderRadius: "md",
+                  transition: "all 0.2s ease-in-out",
+
+                  _hover: {
+                    bg: "hover",
+                  },
+                })}
+              >
+                index.html
+              </button>
+              <button
+                className={css({
+                  color: "text",
+                  padding: "2",
+                  borderRadius: "md",
+                  transition: "all 0.2s ease-in-out",
+
+                  _hover: {
+                    bg: "hover",
+                  },
+                })}
+              >
+                styles.css
+              </button>
+            </div>
+            <CodeBlock language="css" showLineNumbers>
+              {code[0].code}
+            </CodeBlock>
+          </div>
+        </div>
       </div>
     </div>
   );
