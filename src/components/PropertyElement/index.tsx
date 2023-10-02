@@ -1,11 +1,14 @@
 import { css } from "@styled-system/css";
 
-interface ConfigElementProps {
+interface PropertyElementProps {
   name: string;
   children: React.ReactNode;
 }
 
-export default function ConfigElement({ name, children }: ConfigElementProps) {
+export default function PropertyElement({
+  name,
+  children,
+}: PropertyElementProps) {
   return (
     <label
       className={css({
