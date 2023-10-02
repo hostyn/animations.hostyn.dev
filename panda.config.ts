@@ -24,6 +24,9 @@ export default defineConfig({
           menu: {
             value: "#1C1C1C",
           },
+          input: {
+            value: "#141414",
+          },
           hover: {
             value: "#282a36",
           },

@@ -9,8 +9,9 @@ export default function Input(
   return (
     <input
       className={css({
-        bg: "bg",
+        bg: "input",
         color: "white",
+        fontWeight: 500,
         borderRadius: "sm",
         padding: "token(sizes.1) token(sizes.2)",
         outline: "0px solid black",
@@ -18,12 +19,11 @@ export default function Input(
 
         _focus: {
           outline: "2px solid token(colors.text)",
-          bg: "menu",
+          bg: "bg",
         },
 
         _hover: {
-          bg: "menu",
-          outline: "1px solid token(colors.text)",
+          bg: "bg",
         },
       })}
       {...props}
