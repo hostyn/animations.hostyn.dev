@@ -14,7 +14,14 @@ export default function Nav() {
         width: "72",
       })}
     >
-      <h1>Animations</h1>
+      <h1
+        className={css({
+          fontWeight: "bold",
+          letterSpacing: "tight",
+        })}
+      >
+        Hostyn&apos;s Animations
+      </h1>
     </nav>
   );
 }
